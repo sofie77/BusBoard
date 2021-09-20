@@ -20,16 +20,27 @@ namespace BusBoard.ConsoleApp
 
             var request = new RestRequest("StopPoint/490008660N/Arrivals", Method.GET);
 
-            var response = client.Execute(request);
+            var response = client.Execute<List<Arrival>>(request).Data;
 
-            Console.WriteLine(response.Content);
-
+            Arrival whereTo = new Arrival(whereTo);
+            //Arrival busRoute = new Arrival(busRoute);
+            //Arrival arrivalTime = new Arrival(arrivalTime);
            
+            foreach (var bus in response)
+            {
 
+            }
+            
+                    
 
+                
+            Console.WriteLine(response);
             Console.Read();
 
-            //testing github
+
+            
+
+            
 
 
 
