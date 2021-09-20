@@ -6,20 +6,22 @@ using System.Threading.Tasks;
 
 namespace BusBoard.ConsoleApp
 {
-    class Arrival
+    public class Arrival
     {
         
-        public string destinationName;
-        public string lineid;
-        public string timeToStation;
-        
-        public Arrival(string whereTo, string busNumber, string whenArrives)
-        {
-            this.destinationName = whereTo;
-            this.lineid = busNumber;
-            this.timeToStation = whenArrives;
+        public string destinationName { get; set; }
+        public string lineId { get; set; }
+        public int timeToStation { get; set; }
 
-        }
+        
+        
+        //public Arrival(string whereTo, string busNumber, string whenArrives)
+        //{
+        //    this.destinationName = whereTo;
+        //    this.lineid = busNumber;
+        //    this.timeToStation = whenArrives;
+
+        //}
 
     }
 }
