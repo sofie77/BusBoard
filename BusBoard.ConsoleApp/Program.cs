@@ -18,11 +18,14 @@ namespace BusBoard.ConsoleApp
             var client = new RestClient("https://api.tfl.gov.uk/");
             //client.Authenticator = new HttpBasicAuthenticator("username", "password");
 
-            var request = new RestRequest("StopPoint/490008660N/Arrivals", DataFormat.Json);
+            var request = new RestRequest("StopPoint/490008660N/Arrivals", Method.GET);
 
-            var response = client.Get(request);
+            var response = client.Execute(request);
 
-            Console.WriteLine(response);
+            Console.WriteLine(response.Content);
+
+           
+
 
             Console.Read();
 
