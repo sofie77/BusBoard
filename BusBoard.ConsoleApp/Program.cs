@@ -40,37 +40,38 @@ namespace BusBoard.ConsoleApp
             var StopPointRequest = new RestRequest($"StopPoint/?lat={postcodeRequest.Latitude}&lon={postcodeRequest.Longitude}&stopTypes=NaptanPublicBusCoachTram&radius=500", Method.GET);
             StopPointRequest.AddHeader("app_key", APIKEY);
             var StopPointResponse = client.Execute<StopPointResults>(StopPointRequest).Data;
-            var closestStops = StopPointResponse.stopPoints.GetRange(0, 2);            
+            var closestStops = StopPointResponse.stopPoints.GetRange(0, 1);  
+            
 
-
+            //This needs fixing - it only runs it once
             foreach(var stop in closestStops)
             {
-                Console.WriteLine(stop.NaptanId);
+               var request = new RestRequest($"StopPoint/{stop.NaptanId}/Arrivals", Method.GET);
+            request.AddHeader("app_key", APIKEY);
+            var response = client.Execute<List<Arrival>>(request).Data;
+            var SortedList = response.OrderBy(x => x.timeToStation).ToList();
+            var limitedSortedList = SortedList.GetRange(0, 5);
+
+
+            foreach (var bus in limitedSortedList)
+            {
+                if (bus.timeToStation >= 0)
+                    {
+                        TimeSpan t = TimeSpan.FromSeconds(bus.timeToStation);
+                        string answer = t.ToString(@"hh\:mm\:ss");
+
+
+                    Console.WriteLine($"Bus destination: {bus.destinationName}, bus number: {bus.lineId}, time to arrival: {answer}");
+                    }
+
+
+            }  
             }
 
 
 
-
-            //var request = new RestRequest($"StopPoint/{stopcode}/Arrivals", Method.GET);
-            //request.AddHeader("app_key", APIKEY);
-            //var response = client.Execute<List<Arrival>>(request).Data;
-            //var SortedList = response.OrderBy(x => x.timeToStation).ToList();
-            //var limitedSortedList = SortedList.GetRange(0, 5);
-
-
-            //    foreach (var bus in limitedSortedList)
-            //{
-            //        if (bus.timeToStation >= 0)
-            //        {
-            //            TimeSpan t = TimeSpan.FromSeconds(bus.timeToStation);
-            //            string answer = t.ToString(@"hh\:mm\:ss");
-
-
-            //        Console.WriteLine($"Bus destination: {bus.destinationName}, bus number: {bus.lineId}, time to arrival: {answer}");
-            //        }
-
-
-            //}
+           
+            
 
 
 
