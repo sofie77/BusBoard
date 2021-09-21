@@ -57,6 +57,8 @@
     <Compile Include="Postcode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StopPoint.cs" />
+    <Compile Include="StopPointResults.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
